@@ -1,0 +1,71 @@
+.placed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 30vh;
+    background: linear-gradient(135deg, #fdfbfb, #ebedee);
+    text-align: center;
+    padding: 5rem;
+    overflow: hidden;
+}
+
+.placed h1 {
+    color: #222;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 2rem;
+    max-width: 600px;
+    line-height: 1.4;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.placed p {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.placed button {
+    margin-top: 2rem;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    background: #000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out 1.5s forwards;
+}
+
+.placed button:hover {
+    background: #444;
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Confetti dots animation */
+.confetti {
+    position:absolute;
+    width: 8px;
+    height: 5px;
+    background: red;
+    animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(720deg);
+    }
+}
