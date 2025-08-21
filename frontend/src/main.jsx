@@ -6,7 +6,7 @@ import "./index.css";
 import StoreContextProvider from "./Context/Context";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter basename="/foodingo">
+  <BrowserRouter>
     <StoreContextProvider>
       <App />
     </StoreContextProvider>
