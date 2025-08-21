@@ -30,8 +30,8 @@
     "globals": "^16.0.0",
     "vite": "^6.3.5"
   },
-  "engine":{
-    "node":"18.x"
+  "engines":{
+    "node":"20.x"
   }
 }
 
