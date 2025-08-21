@@ -6,7 +6,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { assets } from "../../assets/assets";
 const Orders = () => {
-  const url = "http://localhost:5000";
+  const url = "https://foodingo-backend-dj72.onrender.com";
   const [orders, setOrders] = useState([]);
   const fetchallorders = async () => {
     const response = await axios.get(url + "/api/order/list");
