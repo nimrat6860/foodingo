@@ -4,7 +4,7 @@ import axios from "axios";
 import { assets } from "../../assets/assets";
 import { toast  } from "react-toastify";
 const Add = () => {
-  const url = "http://localhost:5000";
+  const url = "https://foodingo-backend-dj72.onrender.com";
   const [image, setImage] = useState(false);
   const [data, setData] = useState({
     name: "",
