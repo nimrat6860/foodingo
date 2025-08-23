@@ -1,54 +1,86 @@
-.header{
-    height: 30vw;
-    margin: 5px auto;
-    background : url('/header.png') no-repeat;
-    background-size:cover;
-    position: relative;
+.header {
+  height: 30vw;
+  min-height: 250px; 
+  margin: 5px auto;
+  background: url('/header.png') no-repeat center center/cover;
+  position: relative;
+  border-radius: 12px; 
+  overflow: hidden;
 }
-.header-contents{
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap:1.5vw;
-    max-width: 50%;
-    bottom: 15%;
-    left: 6vw;
-    animation: fadeIn 3s;
+
+.header-contents {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2vw;
+  max-width: 50%;
+  bottom: 12%;
+  left: 6vw;
+  animation: fadeIn 2s ease-in-out;
 }
-.header-contents h2{
-    font-weight: 500;
-    color:linen;
-    font-size: max(4vw,20px);
-    margin-bottom: 8%;
+
+.header-contents h2 {
+  font-weight: 600;
+  color:antiquewhite;
+  font-size: clamp(20px, 4vw, 42px); 
+  line-height: 1.3;
+  margin-bottom: 5%;
 }
-.header-contents p{
-    color:cornsilk;
-    font-size:1vw;
-    font-weight: 400;
+
+.header-contents p {
+  color: cornsilk;
+  font-size: clamp(12px, 1.2vw, 18px);
+  font-weight: 400;
+  line-height: 1.5;
 }
-.header-contents button{
-    border: none;
-    color:#747474;
-    font-weight: 600;
-    padding: 1vw 2.3vw;
-    background-color: white;
-    font-size: max(1vw , 13px);
-    border-radius: 50px;
+
+.header-contents button {
+  border: none;
+  color: #333;
+  font-weight: 600;
+  padding: 0.8em 2em;
+  background-color: white;
+  font-size: clamp(13px, 1.1vw, 16px);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
-@media (max-width:1050px){
-    .header-contents{
-        max-width: 55%;
-    }
+
+.header-contents button:hover {
+  background-color: #f5f5f5;
+  transform: scale(1.05);
 }
-@media (max-width:750px){
-    .header-contents{
-        max-width: 55%;
-    }
-    .header-contents p{
-        display: none;
-    }
-    .header-contents button{
-        padding: 2vw 4vw;
-    }
+
+/* Tablet screens */
+@media (max-width: 1050px) {
+  .header {
+    height: 40vw;
+  }
+  .header-contents {
+    max-width: 65%;
+    bottom: 10%;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 750px) {
+  .header {
+    height: 50vw;
+    min-height: 200px;
+  }
+  .header-contents {
+    max-width: 80%;
+    left: 5%;
+    bottom: 8%;
+  }
+  .header-contents h2{
+    color:white;
+  }
+  .header-contents p {
+    display: none; /* hide paragraph on small screens */
+  }
+  .header-contents button {
+    padding: 1em 2.5em;
+  }
 }
