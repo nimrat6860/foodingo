@@ -32,13 +32,7 @@ const Navbar = ({ setLogin }) => {
         >
           menu
         </a>
-        <a
-          href="#appdownload"
-          onClick={() => setMenu("mobile-app")}
-          className={menu === "mobile-app" ? "active" : ""}
-        >
-          mobile-app
-        </a>
+       
         <a
           href="#Footer"
           onClick={() => setMenu("contact us")}
