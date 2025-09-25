@@ -25,13 +25,26 @@ const Navbar = ({ setLogin }) => {
         >
           home
         </Link>
-        <a
-          href="#explore-menu"
-          onClick={() => setMenu("menu")}
-          className={menu === "menu" ? "active" : ""}
-        >
-          menu
-        </a>
+       <a
+  href="#explore-menu"
+  onClick={(e) => {
+    e.preventDefault();
+    if (window.location.pathname !== "/") {
+      navigate("/"); // go to home page first
+      // wait for DOM to render
+      setTimeout(() => {
+        document.getElementById("explore-menu")?.scrollIntoView({ behavior: "smooth" });
+      }, 100); // 100ms delay to allow ExploreMenu to mount
+    } else {
+      document.getElementById("explore-menu")?.scrollIntoView({ behavior: "smooth" });
+    }
+    setMenu("menu");
+  }}
+  className={menu === "menu" ? "active" : ""}
+>
+  menu
+</a>
+
        
         <a
           href="#Footer"
