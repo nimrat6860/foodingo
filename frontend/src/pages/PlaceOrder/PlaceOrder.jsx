@@ -69,6 +69,7 @@ useContext(()=>{
             value={data.firstname}
             type="text"
             placeholder="First Name"
+              required="true"
           />
           <input 
             name="lastname"
@@ -76,6 +77,7 @@ useContext(()=>{
             value={data.lastname}
             type="text"
             placeholder="Last Name"
+              required="true"
           />
         </div>
         <input 
@@ -84,6 +86,7 @@ useContext(()=>{
           value={data.email}
           type="email"
           placeholder="Email address"
+            required="true"
         />
         <input 
           name="street"
@@ -91,6 +94,7 @@ useContext(()=>{
           value={data.street}
           type="text"
           placeholder="Street"
+            required="true"
         />
         <div className="multifields">
           <input 
@@ -99,6 +103,7 @@ useContext(()=>{
             value={data.city}
             type="text"
             placeholder="City"
+              required="true"
           />
           <input 
             name="state"
@@ -106,6 +111,7 @@ useContext(()=>{
             value={data.state}
             type="text"
             placeholder="State"
+              required="true"
           />
         </div>
         <div className="multifieldz">
@@ -122,6 +128,7 @@ useContext(()=>{
             value={data.country}
             type="text"
             placeholder="COUNTRY"
+              required="true"
           />
         </div>
         <input  
@@ -130,6 +137,7 @@ useContext(()=>{
           value={data.phone}
           type="text"
           placeholder="Phone Number"
+            required="true"
         />
       </div>
       <div className="placeorderright">
