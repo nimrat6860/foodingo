@@ -5,10 +5,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const PlaceOrder = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { cartTotal, token, food_list, cartItems, setCartItems, url } = useContext(StoreContext);
 
-  const { cartTotal, token, food_list, cartItems,setCartItems, url } =
-    useContext(StoreContext);
   const [data, setData] = useState({
     firstname: "",
     lastname: "",
@@ -20,138 +19,89 @@ const PlaceOrder = () => {
     country: "",
     phone: "",
   });
+
+  // Redirect non-logged-in users
+  useEffect(() => {
+    if (!token) {
+      navigate("/cart");
+    }
+  }, [token, navigate]);
+
   const onchangehanlder = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setData((data) => ({ ...data, [name]: value }));
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
   };
+
   const placeorder = async (e) => {
-  e.preventDefault();
-  try {
-    let orderitems = [];
-    (food_list || []).forEach((item) => {
-      if (cartItems[item._id] > 0) {
-        orderitems.push({ ...item, quantity: cartItems[item._id] });
+    e.preventDefault();
+
+    if (!token) return; // extra safety
+
+    try {
+      const orderitems = (food_list || [])
+        .filter((item) => cartItems[item._id] > 0)
+        .map((item) => ({ ...item, quantity: cartItems[item._id] }));
+
+      if (orderitems.length === 0) {
+        alert("Cart is empty!");
+        return;
       }
-    });
 
-    let orderdata = {
-      address: data,
-      items: orderitems,
-      amount: cartTotal() + 20
-    };
-    const res = await axios.post(url + "/api/order/place", orderdata, {
-      headers: { token }
-    });
+      const orderdata = {
+        address: data,
+        items: orderitems,
+        amount: cartTotal() + 20,
+      };
 
-if (res.status === 200) {
-  setCartItems({}); // clear frontend cart
-  navigate("/placed");
-}
-  } catch (err) {
-    console.error("Error placing order:", err);
-    alert("Failed to place order. Please try again.");
-  }
-};
-useContext(()=>{
-  if(!token){
-    navigate("/cart")
-  }
-},[token])
+      const res = await axios.post(url + "/api/order/place", orderdata, {
+        headers: { token },
+      });
+
+      if (res.status === 200) {
+        setCartItems({}); // clear cart
+        navigate("/placed");
+      }
+    } catch (err) {
+      console.error("Error placing order:", err);
+      alert("Failed to place order. Please try again.");
+    }
+  };
+
   return (
     <form onSubmit={placeorder} className="placeorder">
+      {/* Left Side: Delivery Info */}
       <div className="placeorderleft">
-        <p className="title"> Delivery Information</p>
+        <p className="title">Delivery Information</p>
         <div className="multifields">
-          <input 
-            name="firstname"
-            onChange={onchangehanlder}
-            value={data.firstname}
-            type="text"
-            placeholder="First Name"
-              required="true"
-          />
-          <input 
-            name="lastname"
-            onChange={onchangehanlder}
-            value={data.lastname}
-            type="text"
-            placeholder="Last Name"
-              required="true"
-          />
+          <input name="firstname" value={data.firstname} onChange={onchangehanlder} placeholder="First Name" required />
+          <input name="lastname" value={data.lastname} onChange={onchangehanlder} placeholder="Last Name" required />
         </div>
-        <input 
-          name="email"
-          onChange={onchangehanlder}
-          value={data.email}
-          type="email"
-          placeholder="Email address"
-            required="true"
-        />
-        <input 
-          name="street"
-          onChange={onchangehanlder}
-          value={data.street}
-          type="text"
-          placeholder="Street"
-            required="true"
-        />
+        <input name="email" value={data.email} onChange={onchangehanlder} placeholder="Email address" type="email" required />
+        <input name="street" value={data.street} onChange={onchangehanlder} placeholder="Street" required />
         <div className="multifields">
-          <input 
-            name="city"
-            onChange={onchangehanlder}
-            value={data.city}
-            type="text"
-            placeholder="City"
-              required="true"
-          />
-          <input 
-            name="state"
-            onChange={onchangehanlder}
-            value={data.state}
-            type="text"
-            placeholder="State"
-              required="true"
-          />
+          <input name="city" value={data.city} onChange={onchangehanlder} placeholder="City" required />
+          <input name="state" value={data.state} onChange={onchangehanlder} placeholder="State" required />
         </div>
         <div className="multifieldz">
-          <input 
-            name="pincode"
-            onChange={onchangehanlder}
-            value={data.pincode}
-            type="text"
-            placeholder="PIN CODE"
-          />
-          <input 
-            name="country"
-            onChange={onchangehanlder}
-            value={data.country}
-            type="text"
-            placeholder="COUNTRY"
-              required="true"
-          />
+          <input name="pincode" value={data.pincode} onChange={onchangehanlder} placeholder="PIN CODE" required />
+          <input name="country" value={data.country} onChange={onchangehanlder} placeholder="COUNTRY" required />
         </div>
-        <input  
-          name="phone"
-          onChange={onchangehanlder}
-          value={data.phone}
-          type="text"
-          placeholder="Phone Number"
-            required="true"
-        />
+        <input name="phone" value={data.phone} onChange={onchangehanlder} placeholder="Phone Number" required />
       </div>
+
+      {/* Right Side: Cart Summary */}
       <div className="placeorderright">
         <div className="cartTotal">
           <h2>Cart Total</h2>
           <div>
             <div className="cart-total-details">
               <p>Sub Total</p>
-              <p>{cartTotal()}</p>
+              <p>₹{cartTotal()}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Delivery Fee</p>
-              <p>₹ {cartTotal() === 0 ? 0 : 20}</p>
+              <p>₹{cartTotal() === 0 ? 0 : 20}</p>
             </div>
             <hr />
             <div className="cart-total-details">
@@ -159,9 +109,7 @@ useContext(()=>{
               <b>₹{cartTotal() === 0 ? 0 : cartTotal() + 20}</b>
             </div>
           </div>
-          <button type="submit"  >
-            Place Order
-          </button>
+          <button type="submit">Place Order</button>
         </div>
       </div>
     </form>
