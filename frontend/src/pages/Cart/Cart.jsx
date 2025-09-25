@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./Cart.css";
 import { StoreContext } from "../../Context/Context";
 import { useNavigate } from "react-router-dom";
-const Cart = () => {
+const Cart = ({ setLogin }) => {
   const { cartItems, food_list, removeFromCart, cartTotal,url } =
     useContext(StoreContext);
   const navigate = useNavigate();
@@ -58,9 +58,14 @@ const Cart = () => {
               <b>₹{cartTotal() === 0 ? 0 : cartTotal() + 20}</b>
             </div>
           </div>
-          {cartTotal() > 0 && (
+         {cartTotal() > 0 && ( 
+            (token)?
             <button onClick={() => navigate("/order")}>
               Proceed to checkout
+            </button>
+            :
+            <button onClick={()=>setLogin(true)}>
+              Please first Sign In
             </button>
           )}
         </div>
