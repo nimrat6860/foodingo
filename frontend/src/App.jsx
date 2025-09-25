@@ -17,7 +17,7 @@ const App = () => {
         <Navbar setLogin={setLogin} />
         <Routes>
           <Route path="/" element={<Home/>} />
-          <Route path="/cart" element={<Cart/>} />
+<Route path="/cart" element={<Cart setLogin={setLogin}/>} />          
           <Route path="/order" element={<PlaceOrder />} />
           <Route path="/placed" element={<Placed/>}/>
           <Route path="/myorder" element={<Myorder/>}/>
