@@ -12,3 +12,35 @@
     gap:30px;
     row-gap: 50px;
 }
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh; 
+}
+
+.loader {
+  border: 6px solid #eee;
+  border-top: 6px solid #ff6600; 
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+.loader-text {
+  font-size: 18px;
+  font-weight: 500;
+  color: #444;
+}
+.loader-text span {
+  color: #ff6600;
+  font-weight: 600;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
