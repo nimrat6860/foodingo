@@ -7,6 +7,8 @@ const StoreContextProvider = (props) => {
   const url = "https://foodingo-backend-dj72.onrender.com"
   const [token,setToken]=useState("")
  const [food_list,setFoodlist] = useState([])
+  const [loading, setLoading] = useState(true); 
+
   const addToCart = async (itemId) => {
     if (!cartItems[itemId]) {
       setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
@@ -38,6 +40,8 @@ const StoreContextProvider = (props) => {
   const fetchfoodlist=async()=>{
     const response = await axios.get(url+"/api/food/list");
 setFoodlist(response.data.data)
+    setLoading(false);
+
   }
   const loadcartdata=async(token)=>{
     const response = await axios.post(url+"/api/cart/get",{},{headers:{token}})
@@ -62,7 +66,8 @@ loaddata()
     cartTotal,
     url,
     token,
-    setToken
+    setToken,
+    loading
   };
   return (
     <StoreContext.Provider value={contextValue}>
